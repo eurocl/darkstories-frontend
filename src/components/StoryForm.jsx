@@ -9,9 +9,9 @@ function StoryForm({ usuario }) {
 
   const [title, setTitle] = useState("");
   const [synopsis, setSynopsis] = useState("");
+  const [cover, setCover] = useState(null);
 
   const [loading, setLoading] = useState(false);
-
   const [error, setError] = useState("");
 
   // 🔒 SIN LOGIN
@@ -69,25 +69,51 @@ function StoryForm({ usuario }) {
 
       setLoading(true);
 
+      // 🔥 FORMDATA
+      const formData = new FormData();
+
+      formData.append(
+        "title",
+        title.trim()
+      );
+
+      formData.append(
+        "synopsis",
+        synopsis.trim()
+      );
+
+      formData.append(
+        "userId",
+        usuario._id
+      );
+
+      // 🔥 IMAGEN
+      if (cover) {
+
+        formData.append(
+          "cover",
+          cover
+        );
+
+      }
+
+      // 🔥 DEBUG
+      for (let pair of formData.entries()) {
+
+        console.log(
+          pair[0],
+          pair[1]
+        );
+
+      }
+
       const res = await fetch(
         `${API_URL}/stories`,
         {
 
           method: "POST",
 
-          headers: {
-            "Content-Type": "application/json",
-          },
-
-          body: JSON.stringify({
-
-            title: title.trim(),
-
-            synopsis: synopsis.trim(),
-
-            userId: usuario._id,
-
-          }),
+          body: formData,
 
         }
       );
@@ -155,6 +181,28 @@ function StoryForm({ usuario }) {
             setSynopsis(e.target.value)
           }
         />
+
+        {/* PORTADA */}
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) =>
+            setCover(
+              e.target.files[0]
+            )
+          }
+        />
+
+        {/* PREVIEW */}
+        {cover && (
+
+          <img
+            src={URL.createObjectURL(cover)}
+            alt="preview"
+            className="cover-preview"
+          />
+
+        )}
 
         {/* ERROR */}
         {error && (
