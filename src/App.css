@@ -1,4 +1,9 @@
 /* =========================
+   GOOGLE FONTS
+========================= */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap');
+
+/* =========================
    RESET
 ========================= */
 * {
@@ -7,24 +12,74 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   width: 100%;
   overflow-x: hidden;
-  font-family: Arial, sans-serif;
-  background: #0a0a0a;
-  color: white;
+  background: #050505;
+  color: #f5f5f5;
+  font-family: 'Inter', sans-serif;
 }
 
-/* 🔥 MUY IMPORTANTE */
 #root {
   width: 100%;
-  margin: 0;
-  padding: 0;
 }
 
 /* =========================
-   BANNER PERFECTO (SIN CORRIMIENTO)
+   GLOBAL
 ========================= */
+
+body {
+  background: #050505;
+  color: white;
+}
+
+.container {
+  width: 100%;
+  max-width: 1400px;
+  margin: auto;
+  padding: 40px;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 999;
+
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+
+  padding: 25px;
+
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(10px);
+
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+nav a {
+  color: #f5f5f5;
+  text-decoration: none;
+  font-size: 0.95rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: 0.3s;
+}
+
+nav a:hover {
+  color: #999;
+}
+
+/* =========================
+   HERO
+========================= */
+
 .home-banner {
   width: 100%;
   height: 100vh;
@@ -32,208 +87,333 @@ html, body {
   overflow: hidden;
 }
 
-/* imagen */
 .home-banner img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
-  display: block;
+  filter: brightness(0.35);
 }
 
-/* overlay */
 .banner-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-}
-
-
-/* =========================
-   CONTENEDOR GENERAL
-========================= */
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.3),
+      rgba(0,0,0,0.85)
+    );
 }
 
 /* =========================
-   NAV
+   HERO CONTENT
 ========================= */
-nav {
+
+.hero-content {
+  position: absolute;
+  inset: 0;
+
   display: flex;
-  gap: 15px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+
+  z-index: 2;
+  text-align: center;
 }
 
-nav a {
-  color: white;
-  text-decoration: none;
-  transition: 0.2s;
-}
+.hero-content h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 6rem;
+  font-weight: 300;
+  letter-spacing: 6px;
 
-nav a:hover {
-  color: crimson;
-}
-
-/* =========================
-   TEXTAREA + BOTONES
-========================= */
-textarea {
-  width: 100%;
-  min-height: 100px;
-  background: #111;
-  color: white;
-  border: 1px solid #333;
-  padding: 10px;
-  margin-top: 15px;
-  border-radius: 6px;
-  resize: vertical;
-}
-
-button {
-  margin-top: 15px;
-  background: crimson;
-  border: none;
-  color: white;
-  padding: 10px 20px;
-  cursor: pointer;
-  border-radius: 6px;
-  transition: 0.2s;
-
-  width: auto;            /* 🔥 clave */
-  display: block;
-  margin-left: auto;      /* 🔥 centra */
-  margin-right: auto;     /* 🔥 centra */
-}
-
-button:hover {
-  opacity: 0.85;
-}
-
-/* =========================
-   LISTA HISTORIAS
-========================= */
-ul {
-  list-style: none;
-  margin-top: 20px;
-  padding: 0;
-}
-
-li {
-  background: #111;
-  border: 1px solid #333;
-  padding: 10px;
-  border-radius: 6px;
   margin-bottom: 10px;
 }
 
+.hero-content p {
+  color: #cfcfcf;
+  font-size: 1rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+
+  margin-bottom: 40px;
+}
+
 /* =========================
-   CAPÍTULOS
+   AUTH MESSAGE
 ========================= */
-.chapters-list {
+
+.auth-message {
   margin-top: 20px;
+  text-align: center;
+}
+
+.auth-message p {
+  color: #bbb;
+  margin-bottom: 20px;
+}
+
+.auth-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.auth-buttons a,
+.write-button {
+  border: 1px solid rgba(255,255,255,0.2);
+  background: transparent;
+  color: white;
+
+  padding: 14px 28px;
+
+  text-decoration: none;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+
+  transition: 0.3s;
+}
+
+.auth-buttons a:hover,
+.write-button:hover {
+  background: white;
+  color: black;
+}
+
+/* =========================
+   STORIES SECTION
+========================= */
+
+.stories-section {
+  padding-top: 120px;
+  padding-bottom: 120px;
+}
+
+/* =========================
+   EDITORIAL CARD
+========================= */
+
+.editorial-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+
+  align-items: center;
+
+  margin-bottom: 180px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+
+  padding-bottom: 80px;
+}
+
+/* alternado */
+.editorial-card.reverse .editorial-image {
+  order: 2;
+}
+
+.editorial-card.reverse .editorial-content {
+  order: 1;
+}
+
+/* =========================
+   IMAGE
+========================= */
+
+.editorial-image img {
+  width: 100%;
+  height: 650px;
+  object-fit: cover;
+
+  filter: grayscale(100%) contrast(1.1);
+
+  transition: 0.5s;
+}
+
+.editorial-image img:hover {
+  transform: scale(1.02);
+  filter: grayscale(0%);
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.editorial-content {
+  position: relative;
+}
+
+.editorial-number {
+  font-size: 0.8rem;
+  letter-spacing: 4px;
+  color: #777;
+
+  margin-bottom: 25px;
+}
+
+.editorial-content h2 {
+  font-family: 'Cormorant Garamond', serif;
+
+  font-size: 4.5rem;
+  line-height: 0.9;
+
+  font-weight: 400;
+
+  margin-bottom: 25px;
+
+  text-transform: uppercase;
+}
+
+.editorial-line {
+  width: 120px;
+  height: 1px;
+  background: rgba(255,255,255,0.2);
+
+  margin-bottom: 30px;
+}
+
+.editorial-content p {
+  color: #b5b5b5;
+
+  line-height: 1.9;
+  font-size: 0.95rem;
+
+  max-width: 500px;
+
+  margin-bottom: 40px;
+}
+
+.read-button {
+  border: 1px solid rgba(255,255,255,0.2);
+  background: transparent;
+  color: white;
+
+  padding: 14px 30px;
+
+  cursor: pointer;
+
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+
+  transition: 0.3s;
+}
+
+.read-button:hover {
+  background: white;
+  color: black;
+}
+
+/* =========================
+   STORY PAGE
+========================= */
+
+.story-header h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 4rem;
+  font-weight: 400;
+}
+
+.story-page-cover {
+  width: 100%;
+  max-height: 700px;
+  object-fit: cover;
+
+  margin-top: 40px;
+  margin-bottom: 40px;
+
+  filter: grayscale(100%);
+}
+
+.story-synopsis {
+  font-size: 1rem;
+  color: #c8c8c8;
+  line-height: 2;
+
+  max-width: 900px;
+
+  margin-bottom: 80px;
+}
+
+/* =========================
+   CHAPTERS
+========================= */
+
+.chapters-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
 }
 
 .chapter-item {
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+
+  padding: 25px 0;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #111;
-  padding: 10px 15px;
-  border-radius: 8px;
-  border: 1px solid #333;
-  transition: all 0.3s ease;
-}
-
-.chapter-item.removing {
-  opacity: 0;
-  transform: translateX(40px);
 }
 
 .chapter-title {
-  font-weight: bold;
+  font-size: 1rem;
+  letter-spacing: 1px;
 }
 
 .chapter-actions {
   display: flex;
-  gap: 8px;
+  gap: 10px;
 }
 
 .chapter-actions button {
   background: transparent;
-  border: 1px solid #444;
+  border: 1px solid rgba(255,255,255,0.1);
+  color: white;
+
+  width: 45px;
+  height: 45px;
+
+  cursor: pointer;
+
+  transition: 0.3s;
 }
 
 .chapter-actions button:hover {
-  background: crimson;
-}
-
-/* =========================
-   BOTÓN NUEVO CAPÍTULO
-========================= */
-.new-chapter {
-  margin-top: 20px;
-  background: crimson;
-  padding: 10px;
-}
-
-/* =========================
-   HEADER HISTORIA
-========================= */
-.story-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.delete-story {
-  background: transparent;
-  border: 1px solid red;
-  color: red;
-  padding: 6px 10px;
-  cursor: pointer;
-  border-radius: 6px;
-}
-
-.delete-story:hover {
-  background: red;
+  background: white;
   color: black;
 }
 
 /* =========================
    RESPONSIVE
 ========================= */
-@media (max-width: 768px) {
-  .banner-title {
-    font-size: 2rem;
+
+@media (max-width: 900px) {
+
+  .hero-content h1 {
+    font-size: 3rem;
+  }
+
+  .editorial-card {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .editorial-card.reverse .editorial-image,
+  .editorial-card.reverse .editorial-content {
+    order: initial;
+  }
+
+  .editorial-image img {
+    height: 450px;
+  }
+
+  .editorial-content h2 {
+    font-size: 3rem;
   }
 
   .container {
-    padding: 15px;
+    padding: 20px;
   }
-}
-/* =========================
-   AUTH (LOGIN / REGISTER)
-========================= */
-.auth-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 60px;
-}
 
-.auth-card {
-  width: 100%;
-  max-width: 450px;
-  background: #111;
-  padding: 25px;
-  border-radius: 10px;
-  border: 1px solid #222;
-  box-shadow: 0 0 20px rgba(0,0,0,0.6);
 }
