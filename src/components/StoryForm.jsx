@@ -9,14 +9,16 @@ function StoryForm({ usuario }) {
 
   const [title, setTitle] = useState("");
   const [synopsis, setSynopsis] = useState("");
-  const [cover, setCover] = useState(null);
 
   const [loading, setLoading] = useState(false);
+
   const [error, setError] = useState("");
 
   // 🔒 SIN LOGIN
   if (!usuario) {
+
     return (
+
       <div className="story-form-page">
 
         <div className="story-form-card">
@@ -28,13 +30,21 @@ function StoryForm({ usuario }) {
           </p>
 
           <div className="auth-buttons">
-            <Link to="/login">Login</Link>
-            <Link to="/register">Registro</Link>
+
+            <Link to="/login">
+              Login
+            </Link>
+
+            <Link to="/register">
+              Registro
+            </Link>
+
           </div>
 
         </div>
 
       </div>
+
     );
   }
 
@@ -45,13 +55,10 @@ function StoryForm({ usuario }) {
 
     setError("");
 
-    // 🔥 DEBUG
     console.log("TITLE:", title);
-    console.log("SYNOPSIS:", synopsis);
-    console.log("COVER:", cover);
 
-    // 🔥 VALIDACIÓN
-    if (!title || title.trim() === "") {
+    // VALIDACIÓN
+    if (!title.trim()) {
 
       setError("El título es obligatorio");
 
@@ -62,33 +69,28 @@ function StoryForm({ usuario }) {
 
       setLoading(true);
 
-      // 🔥 IMPORTANTE
-      const formData = new FormData();
+      const res = await fetch(
+        `${API_URL}/stories`,
+        {
 
-      formData.append("title", title.trim());
-      formData.append("synopsis", synopsis.trim());
+          method: "POST",
 
-      if (usuario?._id) {
-        formData.append("userId", usuario._id);
-      }
+          headers: {
+            "Content-Type": "application/json",
+          },
 
-      // 🔥 IMAGEN
-      if (cover instanceof File) {
-        formData.append("cover", cover);
-      }
+          body: JSON.stringify({
 
-      // 🔥 DEBUG
-      for (let pair of formData.entries()) {
-        console.log(pair[0], pair[1]);
-      }
+            title: title.trim(),
 
-      const res = await fetch(`${API_URL}/stories`, {
+            synopsis: synopsis.trim(),
 
-        method: "POST",
+            userId: usuario._id,
 
-        body: formData,
+          }),
 
-      });
+        }
+      );
 
       const data = await res.json();
 
@@ -103,7 +105,7 @@ function StoryForm({ usuario }) {
         return;
       }
 
-      // 🔥 REDIRECT
+      // 🔥 IR A STORY
       navigate(`/story/${data._id}`);
 
     } catch (err) {
@@ -120,6 +122,7 @@ function StoryForm({ usuario }) {
   };
 
   return (
+
     <div className="story-form-page">
 
       <form
@@ -127,14 +130,18 @@ function StoryForm({ usuario }) {
         onSubmit={crearHistoria}
       >
 
-        <h2>✍️ Crear nueva historia</h2>
+        <h2>
+          ✍️ Crear nueva historia
+        </h2>
 
         {/* TÍTULO */}
         <input
           type="text"
           placeholder="Título de la historia"
           value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={(e) =>
+            setTitle(e.target.value)
+          }
         />
 
         {/* DEBUG */}
@@ -144,37 +151,18 @@ function StoryForm({ usuario }) {
         <textarea
           placeholder="Escribe una sinopsis..."
           value={synopsis}
-          onChange={(e) => setSynopsis(e.target.value)}
+          onChange={(e) =>
+            setSynopsis(e.target.value)
+          }
         />
-
-        {/* PORTADA */}
-        <input
-          type="file"
-          accept="image/*"
-          onChange={(e) => {
-
-            const file = e.target.files[0];
-
-            console.log("FILE:", file);
-
-            setCover(file);
-          }}
-        />
-
-        {/* PREVIEW */}
-        {cover && (
-          <img
-            src={URL.createObjectURL(cover)}
-            alt="preview"
-            className="cover-preview"
-          />
-        )}
 
         {/* ERROR */}
         {error && (
+
           <p className="form-error">
             {error}
           </p>
+
         )}
 
         <button
@@ -182,9 +170,11 @@ function StoryForm({ usuario }) {
           disabled={loading}
           className="publish-button"
         >
+
           {loading
             ? "Publicando..."
             : "Publicar historia"}
+
         </button>
 
       </form>
